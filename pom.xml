@@ -15,6 +15,9 @@
   
   <!-- 依赖包 -->
   <dependencies>
+  	
+  	<!-- spring framework config start 20160108-->
+  
   	<!--
     Core utilities used by other modules.
     Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
@@ -155,6 +158,33 @@
 	  <version>${org.springframework.version}</version>
 	  <scope>test</scope>
 	</dependency>
+	<!-- spring framework config end 20160108-->
+	
+	
+	
+	<!-- mysql connection config start 20160108-->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>${mysql.connector.version}</version>
+	</dependency>
+	<!-- mysql connection config end 20160108-->
+	
+	
+	<!-- mybatis config start 20160108-->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>${mybatis.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>1.2.2</version>
+	</dependency>
+	<!-- mybatis config end 20160108-->
+	
   </dependencies>
   
 </project>
