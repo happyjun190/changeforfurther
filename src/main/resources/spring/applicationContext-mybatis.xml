@@ -10,7 +10,28 @@
                         http://www.springframework.org/schema/context/spring-context.xsd 
 						http://www.springframework.org/schema/aop 
 						http://www.springframework.org/schema/aop/spring-aop.xsd">
-
+	
+	
+	<!-- Begin: 设置公用的配置，简化后面的配置 -->
+	<!-- MySQL Hikari Datasource -->
+	<bean id="baseDataSource" abstract="true" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClass}" />
+		<!-- <property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db1}${jdbc.urlParams}" /> --> <!-- 各个数据源自己指定 -->
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 连接只读数据库时配置为true， 保证安全 -->
+		<property name="readOnly" value="false" />
+		<!-- 等待从连接池中获得连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒 -->
+		<property name="connectionTimeout" value="30000" />
+		<!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
+		<property name="idleTimeout" value="600000" />
+		<!-- 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒以上，参考MySQL wait_timeout参数（show variables like '%timeout%';） -->
+		<property name="maxLifetime" value="1765000" />
+		<!-- 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count) -->
+		<property name="maximumPoolSize" value="15" />
+	</bean>
+	
+	
 	<!-- myBatis mapper文件位置 -->
 	<bean id="baseSqlSessionFactory" abstract="true" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- <property name="dataSource" ref="ds2" /> --> <!-- 各个数据源自己指定dataSource ref-->
@@ -22,5 +43,164 @@
 		</property>
 		-->
 	</bean>	
+	
+	
+	
+	<bean id="ds1" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db1}${jdbc.urlParams}" />
+	</bean>
+	
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory1" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds1" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.DrugsalesRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory1" />
+	</bean>
+
+
+	<bean id="ds2" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db2}${jdbc.urlParams}" />
+	</bean>
+
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory2" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds2" />
+	</bean>	
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.OrderRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory2" />
+	</bean>
+
+
+	<bean id="ds3" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db3}${jdbc.urlParams}" />
+	</bean>
+		
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory3" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds3" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.UserRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory3" />
+	</bean>
+
+
+	<bean id="ds4" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db4}${jdbc.urlParams}" />
+	</bean>	
+
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory4" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds4" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.LogRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory4" />
+	</bean>
+
+
+	<bean id="ds5" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db5}${jdbc.urlParams}" />
+	</bean>
+		
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory5" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds5" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.CourseRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory5" />
+	</bean>
+
+
+	<bean id="ds6" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db6}${jdbc.urlParams}" />
+	</bean>
+		
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory6" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds6" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.MessageRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory6" />
+	</bean>
+	
+	
+	<bean id="ds7" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db7}${jdbc.urlParams}" />
+	</bean>
+		
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory7" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds7" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.DictionaryRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory7" />
+	</bean>
+
+
+	<bean id="ds8" parent="${jdbc.baseDatasource}">
+		<property name="jdbcUrl" value="${jdbc.urlHead}${jdbc.db8}${jdbc.urlParams}" />
+	</bean>
+		
+	<!-- myBatis mapper文件位置 -->
+	<bean id="sqlSessionFactory8" parent="baseSqlSessionFactory">
+		<property name="dataSource" ref="ds8" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mavenweb.dao" />
+		<property name="annotationClass" value="com.mavenweb.repositories.AdminRepository" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory8" />
+	</bean>
+
+	<!-- 使用Spring Data的ChainedTransactionManager，缺省的txManager -->
+	<bean id="transactionManager" class="org.springframework.data.transaction.ChainedTransactionManager" >
+		<constructor-arg>
+            <list>
+            <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds1" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds2" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds3" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds4" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds5" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds6" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds7" />
+				</bean>
+				<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+					<property name="dataSource" ref="ds8" />
+				</bean>
+            </list>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 扫描@Transactional标注，并指定一个缺省的transaction-manager -->
+	<tx:annotation-driven transaction-manager="transactionManager" /> 
 
 </beans>

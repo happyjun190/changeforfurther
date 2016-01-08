@@ -12,6 +12,10 @@
                         http://www.springframework.org/schema/mvc     
        					http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	
 	<import resource="applicationContext-dao.xml" />
 	<import resource="applicationContext-service.xml" />
 	<import resource="applicationContext-mybatis.xml" />

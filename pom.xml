@@ -1,9 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>maven_web</groupId>
-  <artifactId>maven_web</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>com.mavenweb</groupId>
+  <artifactId>mavenweb</artifactId>
   <packaging>war</packaging>
+  <name>mavenweb</name>
+  <version>1.0</version>
   <url>http://maven.apache.org</url>
   
   <!-- 版本设置 -->
@@ -11,6 +13,7 @@
   	<mysql.connector.version>5.1.32</mysql.connector.version>
   	<org.springframework.version>4.0.9.RELEASE</org.springframework.version>
   	<mybatis.version>3.3.0</mybatis.version>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
   <!-- 依赖包 -->
@@ -185,6 +188,118 @@
 	</dependency>
 	<!-- mybatis config end 20160108-->
 	
+	
+	<!-- HikariCP -->
+	<dependency>
+		<groupId>com.zaxxer</groupId>
+		<artifactId>HikariCP</artifactId>
+		<version>2.4.0</version>
+	</dependency>
+	
+	<!-- For ChainedTransactionManager -->
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-commons</artifactId>
+		<version>1.10.0.RELEASE</version>
+	</dependency>
+	
   </dependencies>
   
+  
+  <!-- 选择不同的属性为resource中的变量赋值。development：开发环境，production：生产环境 -->
+	<profiles>
+		<profile>
+			<id>development</id>
+			<build>
+				<filters>
+					<filter>src/main/resources/profile/development.properties</filter>
+				</filters>
+			</build>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<build>
+				<filters>
+					<filter>src/main/resources/profile/test.properties</filter>
+				</filters>
+			</build>
+		</profile>
+		<profile>
+			<id>production</id>
+			<build>
+				<filters>
+					<filter>src/main/resources/profile/production.properties</filter>
+				</filters>
+			</build>
+		</profile>
+		
+	</profiles>
+	
+	
+	<build>
+		<finalName>mavenweb</finalName>
+
+		<!-- 启用filtering功能为resources中的变量赋值 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.p12</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.p12</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId> org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<includeEmptyDirectories>true</includeEmptyDirectories>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>
