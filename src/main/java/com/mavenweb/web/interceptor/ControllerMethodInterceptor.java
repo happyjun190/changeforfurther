@@ -17,6 +17,9 @@ public class ControllerMethodInterceptor implements MethodInterceptor{
 	
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
+		
+		
+		
 		logger.info("interceptor method");
 		// TODO Auto-generated method stub
 		return "success";
