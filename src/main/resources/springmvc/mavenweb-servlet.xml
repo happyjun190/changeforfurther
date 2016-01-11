@@ -25,7 +25,7 @@
 	<mvc:resources location="/web/" mapping="/web/**" />
 	
 	
-	<!-- 方法拦截器(拦截controller包中的所有方法) 
+	<!-- 方法拦截器(拦截controller包中的所有方法) -->
 	<bean id="controllerMethodInterceptor" class="com.mavenweb.web.interceptor.ControllerMethodInterceptor">
 	</bean>
 	<aop:config proxy-target-class="true">
@@ -33,6 +33,6 @@
         	@annotation(org.springframework.web.bind.annotation.RequestMapping)"/>
 		<aop:advisor advice-ref="controllerMethodInterceptor" pointcut-ref="controllerMethodPointcut" />
 	</aop:config>
-	-->
+	
 
 </beans>
