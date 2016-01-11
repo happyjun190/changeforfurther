@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mavenweb.dao.drugsales.WholesaleDrugDAO">
+	
+	<select id="getStartWholesaleIdsList" resultType="java.lang.Integer" >
+		select t.id 
+		from ts_wholesale_drug t 
+		where t.status=0 and UNIX_TIMESTAMP() between t.begin_date and t.end_date 
+	</select>
+	
+</mapper>
