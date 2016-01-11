@@ -39,7 +39,7 @@ public class CaigouController {
 			return caigouService.getWholesaleDrugById(map);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage(), ex);
-			return new JsonResult(ReturnCode.EXCEPTION, "获取用户优惠券列表失败！", null);
+			return new JsonResult(ReturnCode.EXCEPTION, "获取活动药品信息失败！", null);
 		}
 		
 	}
