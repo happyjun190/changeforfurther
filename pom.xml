@@ -270,6 +270,13 @@
 		<version>2.7.2</version>
 	</dependency>
 	
+	<!-- solr config -->
+	<dependency>
+	  <groupId>org.apache.solr</groupId>
+	  <artifactId>solr-solrj</artifactId>
+	  <version>x.y.z</version>
+	</dependency>
+	
   </dependencies>
   
   
