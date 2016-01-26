@@ -1,6 +1,9 @@
 package com.mavenweb.model.drugsales;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import org.apache.solr.common.SolrDocument;
 
 /**
  * 药品活动model
@@ -99,7 +102,97 @@ public class TabWholesaleDrug {
 	private int stock_available;// 可用库存
 	
 	private int tag_listorder; // 药品在某tag里面的listorder，需要根据tagid取出
+	
+	private int delivery_provider_id;
 
+	
+	public static TabWholesaleDrug fromSolrDocument(SolrDocument solrDocument) {
+		
+		TabWholesaleDrug model = new TabWholesaleDrug();
+		model.id = (int) solrDocument.getFieldValue("id");
+		model.wholesale_name = (String) solrDocument.getFieldValue("wholesale_name");
+		model.drug_id = (int) solrDocument.getFieldValue("drug_id");
+		model.provider_id = (int) solrDocument.getFieldValue("provider_id");
+		model.begin_date = (int) ((Date) solrDocument.getFieldValue("begin_date")).getTime() / 1000;  // solr 为UTC时间 此处java自动转换时区
+		model.end_date = (int) ((Date) solrDocument.getFieldValue("end_date")).getTime() / 1000;
+		model.unit = (String) solrDocument.getFieldValue("unit");
+		
+		String solrUnitPrice = (String) solrDocument.getFieldValue("unit_price");
+		model.unit_price = new BigDecimal(solrUnitPrice.substring(0, solrUnitPrice.length() - 4)); // 去掉 ",CNY"
+		
+		model.min_amount = (int) solrDocument.getFieldValue("min_amount");
+		//model.order = (int) solrDocument.getFieldValue("order");
+		model.is_top = (int) solrDocument.getFieldValue("is_top");
+		model.image_url = (String) solrDocument.getFieldValue("image_url");
+		model.top_order = (int) solrDocument.getFieldValue("top_order");
+//		model.detail = solrDocument.getFieldValue("");  // no such field in db/solr
+		model.init_amount = (int) solrDocument.getFieldValue("init_amount");
+		model.paid_amount = (int) solrDocument.getFieldValue("paid_amount");      // need db refresh ?
+		
+		String solrCurrentPrice = (String) solrDocument.getFieldValue("current_price");
+		model.current_price = new BigDecimal(solrCurrentPrice.substring(0, solrCurrentPrice.length() - 4));  // 去掉 ",CNY"
+		
+		model.ctime = (int) solrDocument.getFieldValue("ctime");
+//		model.mtime = solrDocument.getFieldValue("");			// no such field in solr  
+//		model.status = (int) solrDocument.getFieldValue("status");
+		model.return_time = (int) solrDocument.getFieldValue("return_time");
+//		model.return_user = solrDocument.getFieldValue("");		// no such field in db/solr
+		model.specification = (String) solrDocument.getFieldValue("specification");
+		model.wholesale_type = (int) solrDocument.getFieldValue("wholesale_type");
+//		model.state = solrDocument.getFieldValue("");			// no such field in db/solr
+		model.bottom_price_url = (String) solrDocument.getFieldValue("bottom_price_url");
+		model.bottom_price_desc = (String) solrDocument.getFieldValue("bottom_price_desc");
+		model.max_amount = (int) solrDocument.getFieldValue("max_amount");
+		model.drug_name = (String) solrDocument.getFieldValue("drug_name");
+//		model.rush_status = solrDocument.getFieldValue("");		// no such field in db/solr    // need db refresh
+//		model.type_flag = solrDocument.getFieldValue("");		// no such field in db/solr
+//		model.order_id = solrDocument.getFieldValue("");			// no such field in db/solr
+		model.rush_begin_date = ((Date) solrDocument.getFieldValue("rush_begin_date")).getTime() / 1000;  // solr 为UTC时间 此处java自动转换时区
+		model.rush_end_date = ((Date) solrDocument.getFieldValue("rush_end_date")).getTime() / 1000;  
+		model.max_amount_per_store = (int) solrDocument.getFieldValue("max_amount_per_store");
+		model.max_amount_per_user = (int) solrDocument.getFieldValue("max_amount_per_user");
+		model.order_amount = (int) solrDocument.getFieldValue("order_amount");
+//		model.db_timestamp = solrDocument.getFieldValue("");		// no such field in db/solr
+		model.push_ad_url = (String) solrDocument.getFieldValue("push_ad_url");
+		model.push_ad_jump = (String) solrDocument.getFieldValue("push_ad_jump");
+		model.push_ad_title = (String) solrDocument.getFieldValue("push_ad_title");
+		model.image_title = (String) solrDocument.getFieldValue("image_title");
+		model.image_jump = (String) solrDocument.getFieldValue("image_jump");
+		model.have_invoice = (int) solrDocument.getFieldValue("have_invoice");
+		model.desc_ext = (String) solrDocument.getFieldValue("desc_ext");
+		model.promotion_type = (int) solrDocument.getFieldValue("promotion_type");
+//		model.presellId = solrDocument.getFieldValue("");		// no such field in db/solr
+		model.area_group_id = new Long((int) solrDocument.getFieldValue("area_group_id"));
+		
+		String solrChainPrice = (String) solrDocument.getFieldValue("chain_price");
+		model.chain_price = new BigDecimal(solrChainPrice.substring(0, solrChainPrice.length() - 4));  // 去掉 ",CNY"
+		
+		model.logo = (String) solrDocument.getFieldValue("logo");
+		model.drug_name_prefix = (String) solrDocument.getFieldValue("drug_name_prefix");
+		model.calculate_begin_date = (int) solrDocument.getFieldValue("calculate_begin_date");
+		model.is_restrict = (int) solrDocument.getFieldValue("is_restrict");
+		model.restrict_group_id = (int) solrDocument.getFieldValue("restrict_group_id");
+		model.recommend_order = (int) solrDocument.getFieldValue("recommend_order");
+		model.sale_type = (int) solrDocument.getFieldValue("sale_type");
+		model.step = (int) solrDocument.getFieldValue("step");
+		
+		String solrOldPrice = (String) solrDocument.getFieldValue("old_price");
+		model.old_price = new BigDecimal(solrOldPrice.substring(0, solrOldPrice.length() - 4));  // 去掉 ",CNY"
+		
+		model.wsdrugasktype_id = (int) solrDocument.getFieldValue("druginfo_wsdrugasktype_id");
+//		model.wsdrugasktype_parentid = solrDocument.getFieldValue("");	// no such field in solr
+		model.calculate_period = (int) solrDocument.getFieldValue("calculate_period");
+		model.prov_object = (int) solrDocument.getFieldValue("prov_object");
+//		model.total_record = solrDocument.getFieldValue("");				// no such field in solr
+		model.druginfo_cn_name = (String) solrDocument.getFieldValue("druginfo_cn_name");
+		
+		Object tmp = solrDocument.getFieldValue("total_pay_amount");
+		model.total_pay_amount = tmp == null ? 0 : (int) tmp;
+		model.delivery_provider_id = (int) solrDocument.getFirstValue("delivery_provider_id");
+		
+		return model;
+	}
+	
 	public int getStock_available() {
 		return stock_available;
 	}
@@ -638,6 +731,14 @@ public class TabWholesaleDrug {
 
 	public void setTag_listorder(int tag_listorder) {
 		this.tag_listorder = tag_listorder;
+	}
+
+	public int getDelivery_provider_id() {
+		return delivery_provider_id;
+	}
+
+	public void setDelivery_provider_id(int delivery_provider_id) {
+		this.delivery_provider_id = delivery_provider_id;
 	}
 
 	
