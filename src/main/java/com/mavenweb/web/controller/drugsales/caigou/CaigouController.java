@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mavenweb.commons.constants.ReturnCode;
 import com.mavenweb.commons.json.JsonResult;
 import com.mavenweb.service.caigou.ICaigouService;
+import com.mavenweb.service.caigou.ICaigouSolrService;
 
 @Controller
 @RequestMapping("/servlet/drugsales")
@@ -24,6 +25,8 @@ public class CaigouController {
 	
 	@Autowired
 	private ICaigouService caigouService;
+	@Autowired
+	private ICaigouSolrService caigouSolrService;
 	
 	/**
 	 * 获取活动药品信息
@@ -36,7 +39,7 @@ public class CaigouController {
 	JsonResult getWholesaleDrugInfo(HttpServletRequest request,@RequestBody Map<String, Object> map) {
 		
 		try {
-			return caigouService.getWholesaleDrugById(map);
+			return caigouSolrService.getCaigouBySolr(map);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			return new JsonResult(ReturnCode.EXCEPTION, "获取活动药品信息失败！", null);
