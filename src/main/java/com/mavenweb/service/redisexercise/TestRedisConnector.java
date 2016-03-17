@@ -7,6 +7,7 @@ public class TestRedisConnector {
 
 	public static void main(String args[]) {
 		jedis = new Jedis("localhost");
+		jedis.auth("zaq1@WSX");
 		System.out.println("Connection to redis server successfully");
 		//查看服务器是否运行
 		System.out.println("Server is running: "+ jedis.ping());
