@@ -26,7 +26,7 @@ public class Worker {
 		
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
-		Connection connection = factory.newConnection();
+		final Connection connection = factory.newConnection();
 		final Channel channel = connection.createChannel();
 		
 		//This queueDeclare change needs to be applied to both the producer and consumer code.

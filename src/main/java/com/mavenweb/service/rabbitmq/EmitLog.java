@@ -9,10 +9,9 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
 
-public class Send {
+public class EmitLog {
 	
-	private final static String QUEUE_NAME = "task_queue";
-	
+	private static final String EXCHANGE_NAME = "logs";
 	
 	public static void main(String args[]) throws IOException, TimeoutException {
 		
@@ -21,11 +20,8 @@ public class Send {
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 		
+		channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
 		
-		//This queueDeclare change needs to be applied to both the producer and consumer code.
-		boolean durable = true;
-		//序列声明  Declaring a queue is idempotent - it will only be created if it doesn't exist already
-		channel.queueDeclare(QUEUE_NAME, durable, false, false, null);
 		
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
@@ -34,15 +30,14 @@ public class Send {
 		
 		while(!"exit".equals(line)) {
 			//String message = "hello world";
-			channel.basicPublish("", QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, line.getBytes());
+			channel.basicPublish(EXCHANGE_NAME, "", MessageProperties.PERSISTENT_TEXT_PLAIN, line.getBytes());
 			System.out.println(" [x] Sent '" + line + "'");
 			line = scanner.nextLine();
 		}
 		
 		channel.close();
 		connection.close();
-		System.out.println("程序结束!");
+		
 	}
-	
 	
 }
