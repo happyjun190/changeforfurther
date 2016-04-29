@@ -13,6 +13,8 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Service;
 
 import com.mavenweb.commons.constants.ReturnCode;
@@ -27,7 +29,8 @@ public class CaigouSolrService implements ICaigouSolrService {
 	private final SolrClient client = new HttpSolrClient(urlString);
 	//private final ObjectMapper jsonMapper = new ObjectMapper();
 	
-	
+	@Before("com.mavenweb.service.aoptest.impl.beforeAdvice()")
+	@AfterReturning("com.mavenweb.service.aoptest.impl.afterFinallyAdvice()")
 	public JsonResult getCaigouBySolr(Map<String, Object> map) throws SolrServerException, IOException {
 		
 		List<TabWholesaleDrug> wholesaleDrugList = new LinkedList<TabWholesaleDrug>();
