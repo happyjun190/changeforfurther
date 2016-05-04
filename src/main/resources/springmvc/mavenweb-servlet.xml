@@ -15,6 +15,7 @@
 	   http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
+	<aop:aspectj-autoproxy/>
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.mavenweb.web.controller" />
 	
@@ -23,7 +24,6 @@
 	<mvc:resources location="/" mapping="/*.html"/>
 	<mvc:resources location="/" mapping="/*.js"/>
 	<mvc:resources location="/web/" mapping="/web/**" />
-	
 	
 	<!-- 方法拦截器(拦截controller包中的所有方法) 
 	<bean id="controllerMethodInterceptor" class="com.mavenweb.web.interceptor.ControllerMethodInterceptor">

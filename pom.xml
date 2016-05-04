@@ -55,12 +55,13 @@
 	<!--
 	    Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans)
 	    Define this if you use Spring AOP APIs (org.springframework.aop.*)
+	-->
 	<dependency>
 	  <groupId>org.springframework</groupId>
 	  <artifactId>spring-aop</artifactId>
 	  <version>${org.springframework.version}</version>
 	</dependency>
-	-->
+	
 	<!--
 	    Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans) 
 	    This is the central artifact for Spring's Dependency Injection Container and is generally always defined
@@ -241,6 +242,21 @@
 		<artifactId>aspectjweaver</artifactId>
 		<version>1.8.5</version>
 	</dependency>
+	
+	<!-- aop 设置 -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+		<version>1.8.5</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>2.2</version>
+	</dependency>
+	
+	
 	<!-- 使用Spring管理和配置事务 20150111 start-->
 	
 	<dependency>

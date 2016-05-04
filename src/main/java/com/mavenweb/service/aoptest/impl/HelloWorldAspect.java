@@ -1,5 +1,8 @@
 package com.mavenweb.service.aoptest.impl;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class HelloWorldAspect {
 	
 	// 前置通知
