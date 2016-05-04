@@ -30,7 +30,7 @@ public class CaigouSolrService implements ICaigouSolrService {
 	//private final ObjectMapper jsonMapper = new ObjectMapper();
 	
 	@Before("com.mavenweb.service.aoptest.impl.beforeAdvice()")
-	@AfterReturning("com.mavenweb.service.aoptest.impl.afterFinallyAdvice()")
+	//@AfterReturning("com.mavenweb.service.aoptest.impl.afterFinallyAdvice()")
 	public JsonResult getCaigouBySolr(Map<String, Object> map) throws SolrServerException, IOException {
 		
 		List<TabWholesaleDrug> wholesaleDrugList = new LinkedList<TabWholesaleDrug>();
@@ -49,6 +49,8 @@ public class CaigouSolrService implements ICaigouSolrService {
 		Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
 		resultMap.put("listSize", wholesaleDrugList.size());
 		resultMap.put("wholesaleDrugList", wholesaleDrugList);
+		
+		System.out.println("xxxxx");
 		
 		return new JsonResult(ReturnCode.SUCCESS, "获取活动信息成功", resultMap);
 	}
