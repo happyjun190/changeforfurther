@@ -2,7 +2,7 @@ package com.mavenweb.javatest.aop.impl;
 
 import com.mavenweb.javatest.aop.IMathOperation;
 
-public class MathOperation implements IMathOperation {
+public class MathOperationLogging implements IMathOperation {
 
 	@Override
 	public int add(int i, int j) {

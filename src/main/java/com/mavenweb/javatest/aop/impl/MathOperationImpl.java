@@ -2,7 +2,7 @@ package com.mavenweb.javatest.aop.impl;
 
 import com.mavenweb.javatest.aop.IMathOperation;
 
-public class MathOperationForProxy implements IMathOperation {
+public class MathOperationImpl implements IMathOperation {
 
 	@Override
 	public int add(int i, int j) {
