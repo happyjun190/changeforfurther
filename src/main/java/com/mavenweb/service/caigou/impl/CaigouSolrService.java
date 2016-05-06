@@ -31,8 +31,8 @@ public class CaigouSolrService implements ICaigouSolrService {
 	private final SolrClient client = new HttpSolrClient(urlString);
 	//private final ObjectMapper jsonMapper = new ObjectMapper();
 	
-	@Before("com.mavenweb.service.aoptest.impl.HelloWorldAspect.beforeAdvice()")
-	@AfterReturning("com.mavenweb.service.aoptest.impl.HelloWorldAspect.afterFinallyAdvice()")
+	//@Before("com.mavenweb.service.aoptest.impl.HelloWorldAspect.beforeAdvice()")
+	//@AfterReturning("com.mavenweb.service.aoptest.impl.HelloWorldAspect.afterFinallyAdvice()")
 	public JsonResult getCaigouBySolr(Map<String, Object> map) throws SolrServerException, IOException {
 		
 		List<TabWholesaleDrug> wholesaleDrugList = new LinkedList<TabWholesaleDrug>();
