@@ -1,10 +1,11 @@
-package com.mavenweb.javatest.test;
+package com.mavenweb.javatest.aop.impl;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 import com.mavenweb.javatest.aop.IMathOperation;
+import java.util.Arrays;
 
 public class MathOperationAutoProxy {
 	//需要代理的对象
@@ -27,8 +28,17 @@ public class MathOperationAutoProxy {
 
 			@Override
 			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-				System.out.println("invoke......");
-				return 0;
+                            
+                            String methodName = method.getName();
+                            
+                            
+                            System.out.println(" the method " + methodName +" input params is "+Arrays.asList(args));
+                            
+                            Object result = method.invoke(target, args);
+                            
+                            System.out.println(" the method " + methodName +" output result is "+result);
+                            return result;
+                            
 			}
 			
 		};

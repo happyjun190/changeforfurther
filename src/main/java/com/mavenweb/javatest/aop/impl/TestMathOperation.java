@@ -1,7 +1,6 @@
-package com.mavenweb.javatest.test;
+package com.mavenweb.javatest.aop.impl;
 
 import com.mavenweb.javatest.aop.IMathOperation;
-import com.mavenweb.javatest.aop.impl.MathOperationImpl;
 
 public class TestMathOperation {
 	public static void main(String args[]) {
@@ -13,8 +12,9 @@ public class TestMathOperation {
 		mathOperation.mul(3, 4);
 		mathOperation.div(4, 2);
 		*/
-		int result = target.add(3, 5);
-		
-		System.out.println(result);
+		target.add(3, 5);
+		target.mul(5, 9);
+                
+		//System.out.println(result);
 	}
 }
